@@ -9,10 +9,13 @@ const morgan = require('morgan');
 const path = require('path');
 const Message = require('./message');
 const bodyParser = require('body-parser');
-
+const moment = require('moment');
 
 //App Declaration
 let app = express();
+
+//App configuration 
+app.set('view engine', 'pug');
 
 //General Purpose Middleware
 app.use(morgan('dev'));
@@ -27,8 +30,19 @@ app.use(express.static('public'));
 
 app.get('/', (req,res) => {
   
-  let indexPath = path.join(__dirname, 'index.html');
-  res.sendFile(indexPath);
+  // let indexPath = path.join(__dirname, 'index.html');
+  // res.sendFile(indexPath);
+  // console.log('hello')
+
+    Message.get((err,messages) => {
+      if(err) return res.status(400).send(err);
+      // console.log(messages);
+      res.render('index',{messages: messages});
+    });
+
+    
+  
+
 
 });
 
@@ -37,13 +51,33 @@ app.get('/messages', (req,res) => {
 
   // var sort = req.query.sort;
 
-  Message.get((err,messages) => {
-    if(err) return res.status(400).send(err);
+  let qString = req.query;
+  // console.log(qString);
+  if(Object.keys(qString).length) {
+    Message.sort(qString.sortBy, (err,messages) => {
+      if(err) return console.log(err);
 
-    res.send(messages);
-  });
+      res.send(messages);
+    });
+  } else {
+
+    Message.get((err,messages) => {
+      if(err) return res.status(400).send(err);
+      console.log
+      res.send(messages);
+    });
+
+    
+  }
+
+
 
 });
+
+// app.get('/messages', (req,res) => {
+
+
+// })
 
 
 app.get('/messages/:id', (req,res) => {

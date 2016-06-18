@@ -13,11 +13,47 @@ body {
    max-width:600px;
 }*/
 
-td {
+/*td {
   min-width: 150px;
   
-}
+}*/
 
 .template {
   display:none;
+}
+
+
+.formfield * {
+    vertical-align: middle;
+}
+
+label {
+  padding-right: 10px;
+
+}
+
+
+#nameLabel {
+  padding-right: 30px;
+}
+
+#nameForm {
+  width: 31.5em;
+  display: inline;
+}
+
+#inputForm {
+  display: inline;
+  width: 31.5em;
+}
+
+table {
+  font-size: 1.5em;
+}
+
+td, th {
+      padding: 35px;
+    max-width: 26em;
+    text-overflow: clip;
+    overflow-wrap: break-word;
 }

@@ -7,18 +7,29 @@ var id="";
 
 function init() {
 
-  renderMessages();
+  // renderMessages();
   $('.newMessage').on('click', newMessage);
   $('.saveMessage').on('click', saveMessage);
   $('.messages').on('click', '.delete', deleteMessage);
   $('.messages').on('click', '.edit', editMessage);
   $('.editMessage').on('click', saveEdit);
-
-
+  $('.edit').on('click', sortMessages);
 }
 
 
 
+
+function sortMessages() {
+  let sortDate = $(this).hasClass('dateSort');
+  let sortBy = sortDate ? 'date' : 'name';
+
+  $.ajax(`/messages?sortBy=${sortBy}`, {
+    success: function(data) {
+      renderMessages();
+    },
+    error: function(err) {console.log(err);}
+  });
+}
 
 
 function newMessage() {
