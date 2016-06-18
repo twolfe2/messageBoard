@@ -1,0 +1,117 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    link(href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css', rel='stylesheet')
+    script(src='https://code.jquery.com/jquery-3.0.0.min.js')
+    // <link href="bootstrap.min.css" rel="stylesheet">
+    link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css', rel='stylesheet')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js')
+    link(rel='stylesheet', href='style.css')
+    script(src='main.js')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Express App
+  body
+    // Modal
+    #messageModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title New Message
+          .modal-body
+            form
+              .form-group
+                label(for="nameForm")#nameLabel Name: 
+                input(type="text").nameInput.form-control#nameForm
+              p.formfield.form-group
+                label(for="inputForm") Message: 
+                textArea.messageInput.form-control(type="text", rows='3')#inputForm
+            //- | Name:
+            //- input.nameInput(type='text')
+            //- br
+            //- span
+            //-   | Message:
+            //-   textarea.messageInput(rows='3')
+          .modal-footer
+            // <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            button.btn.btn-primary.saveMessage(type='button') Save changes
+    // Modal
+    #editModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Edit Message
+          .modal-body
+            form
+              .form-group
+                label(for="nameForm")#nameLabel Name: 
+                input(type="text").newName.form-control#nameForm
+              p.formfield.form-group
+                label(for="inputForm") Message: 
+                textArea.newMessage.form-control(type="text", rows='3')#inputForm
+          .modal-footer
+            // <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            button.btn.btn-primary.editMessage(type='button') Save changes
+    nav.navbar.navbar-default.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-navbar-collapse-2')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') The MB
+        #bs-navbar-collapse-2.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href='#') About
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                | Dropdown 
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='#') Add a new post
+                li
+                  a(href='#') See user list
+          form.navbar-form.navbar-right(role='search')
+            .form-group
+              input.form-control(type='text', placeholder='Search')
+            button.btn.btn-default(type='submit') Submit
+    .containerbooo
+      .row
+        .col-md-10.col-md-offset-1.col-xs-12
+          button.btn.btn-primary.btn-lg.btn-block.newMessage(type='button') Add a new message
+      .row
+        .col-md-5.col-md-offset-5
+          button.btn.btn-primary.dateSort.edit Sort By Date
+          button.btn.btn-default.nameSort.edit Sort By Name
+      .row
+        .col-md-10.col-md-offset-2
+          table.table-responsive.table-striped
+            thead
+              th Name
+              th Message
+              th Post Date
+              th Modify
+            tbody.messages
+              each message in messages
+                tr(message-id= message.id)
+                  td.name= message.name
+                  td.message= message.message
+                  td.date= message.date
+                  td.modify
+                    button.delete.btn.btn-danger.btn-xs Delete 
+                    button.edit.btn.btn-success.btn-xs Edit         
+      table
+        tr.template
+          td.name
+          td.message
+          td.date
+          td.modify
+            button.delete.btn.btn-danger.btn-xs Delete
+            button.edit.btn.btn-success.btn-xs Edit
